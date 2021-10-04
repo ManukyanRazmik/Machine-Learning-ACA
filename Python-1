@@ -1,0 +1,68 @@
+#1st task
+
+a = int(input())
+first = a % 10
+second = a // 10 % 10
+third = a // 100 
+print(first + second + third)
+
+2nd task
+
+a = int(input())
+b = int(input())
+s = (a * b) / 2
+print(s)
+
+3rd task
+
+a_1 = int(input())
+a_2 = int(input())
+n = int(input())
+a_n = a_1 + (n - 1) * (a_2 - a_1)
+print(a_n)
+
+
+4th task
+
+year = int(input())
+cent = (year - 1) // 100 + 1
+print(cent)
+
+
+5th task
+
+first = int(input())
+second = int(input())
+total = first + second
+total_once = total - 1
+first_missed = total_once - first
+second_missed = total_once - second
+print(first_missed, second_missed)
+
+
+6th task
+
+
+px = int(input())
+py = int(input())
+right = px + 2
+right_up = py + 1
+right_down = py - 1
+left = px - 2
+left_up = py + 1
+left_down = py - 1
+top = py + 2
+top_right = px + 1
+top_left = px - 1
+bottom = py - 2
+bottom_right = px + 1
+bottom_left = px - 1
+print(      right,         ' ', right_up,
+      '\n', right,         ' ', right_down,
+      '\n', left,          ' ', left_up,
+      '\n', left,          ' ', left_down,
+      '\n', top_right,     ' ', top,
+      '\n', top_left,      ' ', top,
+      '\n', bottom_right,  ' ', bottom,
+      '\n', bottom_left,   ' ', bottom,
+      sep = '')
