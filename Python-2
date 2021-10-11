@@ -1,0 +1,130 @@
+Quadratic Equation
+
+from math import sqrt
+
+a = float(input())
+b = float(input())
+c = float(input())
+
+def q_func(a, b, c):
+    if a == 0:
+        print('Non-quadratic equition')
+        if b == 0:
+            print('No Solution')
+        else:
+            x = (-1 * c) / b
+            print('One Solution')
+            print("X = ", round(x, 2))
+    else:
+        print('Quadratic Equition')
+        if b == 0 and c > 0:
+            print('No Solution')
+        else:
+            D = b * b - 4 * a * c
+            if D < 0:
+                print('Discriminant: ', D)
+                print('No Solution')
+            else:
+                x1 = (-b + sqrt(D)) / 2
+                x2 = (-b - sqrt(D)) / 2
+                print('Discriminant: ', D)
+                print('Solutions: ',round(x1), round(x2))
+
+
+
+q_func(a, b, c)
+
+*********************************
+
+Digit Product
+
+num = int(input())
+summ = 1
+while num > 0:
+    dig = num % 10
+    if dig == 0:
+        num //= 10
+        continue
+    else:
+        summ *= dig
+    num //=  10
+
+print(summ)
+
+
+***************
+Largest Power of 3
+
+num = int(input())
+total = 1
+count = 0
+while total <= num:
+    total *= 3
+
+print(int(total / 3))
+
+*********************
+
+Triangle
+
+a = int(input())
+b = int(input())
+c = int(input())
+
+
+def triangle(a, b, c):
+    if b >= c:
+        if a >= b:
+            a, c = c, a
+        elif c >= a:
+            b, c = c, b
+        else:
+            a, b, c= c, a, b
+
+    elif a >= b:
+        if c >= a:
+            a,b = b, a
+        else:
+            b, c, a = a, b, c
+
+
+    if a + b <= c:
+        print('No triangle')
+    elif a == b == c:
+        print('Acute triangle')
+    elif a * a + b * b == c * c:
+        print('Right triangle')
+    elif a * a + b * b < c * c:
+        print('Obtuse triangle')
+
+triangle(a, b, c)
+
+***************************
+
+The Root of the Number
+
+num = int(input())
+while num >= 10:
+    root = 0
+    while num > 0:
+        digit = num % 10
+        root += digit
+        num //= 10
+    print(root)
+    num = root
+    
+    
+**************************
+
+Number Of Divisors
+
+from math import sqrt
+num = int(input())
+i = 1
+n = 0
+while i <= num:
+    if num % i == 0:
+        n += 1
+    i += 1
+
+print(n)
