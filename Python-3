@@ -1,0 +1,102 @@
+The Goldbach Conjecture
+
+
+def is_prim(num):
+    prims = [2,3,5,7]
+    if num in prims:
+        return True
+    else:
+        for i in prims:
+            if num % i == 0:
+                return False
+        return True
+
+
+
+number = int(input())
+prims = [2,3,5,7]
+for i in prims:
+    if is_prim(number - i):
+        print(i, number - i)
+        break
+
+**************************************
+Palindrome numbers
+
+def is_pol(c):
+    num = c
+    dig = []
+    rev_num = 0
+    k = 0
+    while c > 0:
+        dig.append(c % 10)
+        c //= 10
+        k += 1
+    k -= 1
+    for i in dig:
+        rev_num += i * (10 ** k)
+        k -= 1
+    if rev_num == num:
+        return True
+    else:
+        return False
+
+pol_nums = []
+a = int(input())
+b = int(input())
+for i in range(a, b+1):
+    if is_pol(i):
+        pol_nums.append(i)
+
+print(pol_nums)
+
+********************************
+
+Suffix Sums
+
+def accum_seq(a):
+    accum_seq = []
+    for i in range(len(a)):
+        accum = 0
+        for j in range(i, len(a)):
+            accum += float(a[j]) # when it is imputed integers, 1,2,3 ...,  the elements of 2nd sequence are also integers
+        accum_seq.append(accum)
+    return accum_seq
+
+
+num_seq = []
+a = input()
+while a != '':
+    num_seq.append(float(a))
+    a = input()
+
+print(accum_seq(num_seq))
+
+**********************************
+Cyclic shift
+
+def cyclic_shift(a, b):
+    shifted = []
+    while b > 0:
+        shifted = [a.pop()]  #we also can use insert()
+        a = shifted + a
+        b -= 1
+    return a
+n = int(input())
+k = int(input())
+numseq = []
+while n > 0:
+    numseq.append(int(input()))
+    n -= 1
+print(cyclic_shift(numseq, k))
+
+*********************
+Tree
+
+n = int(input())
+s = n // 2 + 1
+k = 1
+while s > 0:
+    print(s * ' ', k * '*', s * ' ', sep = '')
+    s -= 1
+    k += 2
