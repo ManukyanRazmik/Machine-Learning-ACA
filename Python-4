@@ -1,4 +1,5 @@
 1
+##Can also be implemented wit RegExp
 
 class Solution(object):
     def numUniqueEmails(self, emails):
@@ -33,12 +34,40 @@ class Solution(object):
         return len(email_set)
         
         
-********************************************
+************************************************************
 
 2
 
+def findAndReplacePattern(words, pattern):
+    same_path = []
+    for word in words:
+        counter = {}
+        for el in range(len(word)):
+            if word[el] not in counter:
+                counter[word[el]] = [pattern[el]]
+            else:
+                if pattern[el] not in counter[word[el]]:
+                    counter[word[el]].append(pattern[el])
+        flag = True
+        for i in counter.values():
+            if len(i) > 1:
+                flag = False
+        if flag:
+            set1 = set()
+            set2 = set()
 
-*********************
+            for key, val in counter.items():
+                set1.add(key)
+                set2.add(str((val)))
+
+            if len(set1) != len(set2):
+                flag = False
+        if flag:
+            same_path.append(word)
+
+    return same_path
+    
+********************************************************
 3
 
 
@@ -84,3 +113,27 @@ def numJewelsInStones(jewels, stones):
  #### Last one is slower
  
  
+****************************************************
+Beautiful binary string
+
+#we solve it during the lesson
+
+****************************************************
+
+String power
+ 
+def stringPower(string, k):
+    if k == 0:
+        return ''
+    elif k > 0:
+        return string * k
+    else:
+        k_p = -1 * k
+        if len(string) % k_p == 0:
+            ind = len(string) // k_p
+            if string[:ind] * k_p == string:
+                return string[:ind]
+            else:
+                return 'Undefined'
+        else:
+            return 'Undefined'
