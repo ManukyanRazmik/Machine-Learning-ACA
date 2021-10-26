@@ -1,0 +1,86 @@
+1
+
+class Solution(object):
+    def numUniqueEmails(self, emails):
+        """
+        :type emails: List[str]
+        :rtype: int
+        """
+        email_set = set()
+        for i in emails:
+            em = list(i)
+            for j in em:
+                if j == '@' or j == '+':
+                    break
+                else:
+                    if j == '.':
+                        em.remove(j)
+
+            if '+' in em:
+                removed = 0
+                for j in range(len(em)):
+                    if em[j] == '+':
+                        for k in range(j, len(em)):
+                            if em[k - removed] == '@':
+                                break
+                            else:
+                                em.pop(k - removed)
+                                removed += 1
+                        break
+
+
+            email_set.add(''.join(em))
+        return len(email_set)
+        
+        
+********************************************
+
+2
+
+
+*********************
+3
+
+
+def findingUsersActiveMinutes(logs, k):
+    answer = [0] * k
+    actions = {}
+    for id, time in logs:
+        if id not in actions:
+            actions[id] = [time]
+        else:
+            if time not in actions[id]:
+                actions[id].append(time)
+    times = {}
+    for time in actions.values():
+        if len(time) in times:
+            times[len(time)] += 1
+        else:
+            times[len(time)] = 1
+    for i in times.keys():
+        answer[i - 1] = times[i]
+    return(answer)
+
+*******************************************************
+4
+
+def numJewelsInStones(jewels, stones):
+    jes = 0
+    for i in stones:
+        if i in jewels:
+            jes += 1
+    return jes
+
+
+def numJewelsInStones(jewels, stones):
+    jewstones = {}
+    for i in jewels:
+        jewstones[i] = 0
+    for j in stones:
+        if j in jewstones:
+            jewstones[i] += 1
+    return(sum(jewstones.values()))
+    
+ #### Last one is slower
+ 
+ 
