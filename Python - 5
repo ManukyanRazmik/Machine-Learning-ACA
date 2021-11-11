@@ -1,0 +1,45 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5**************************************
+
+def mats(board):
+  n = 0
+  for i in board:
+    for j in range(len(i) - 1):
+      if i[j] == 'X' and i[j] == i[j + 1]:
+        i[j] = '.'
+        if (j + 1) == (len(i) - 1):         
+          i[j + 1] = '.'
+          n += 1
+        elif i[j + 2] == '.':
+          i[j + 1] = '.'          
+          n += 1        
+  for i in range(len(board[0])):
+    for j in range(len(board) - 1):
+      if board[j][i] == 'X' and board[j + 1][i] == board[j][i]:
+          board[j][i] = '.'
+          if (j + 1) == len(board) - 1:         
+            board[j + 1][i] = '.'
+            n += 1
+          elif board[j + 2][i] == '.':
+            board[j + 1][i] = '.'          
+            n += 1
+
+  for i in board:
+    for j in i:
+      if j == 'X':
+        n += 1
+        
+  return n
