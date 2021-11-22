@@ -1,0 +1,164 @@
+class Matrix:
+    def __init__(self, *args, **kwargs):
+        """
+        Takes 2 keyword arguments: filename or list. If filename is given
+        read the matrix from file. Else, read it directly from list.
+        """
+        if 'filename' in kwargs:
+            self.read_from_file(kwargs['filename'])
+        elif 'list' in kwargs:
+            self.read_as_list(kwargs['list'])
+
+    def read_as_list(self, matrix_list):
+        if len(matrix_list) == 0:
+            self._matrix = []
+            self._columns = 0
+            self._rows = 0
+            return
+
+        columns_count_0 = len(matrix_list[0])
+        if not all(len(row) == columns_count_0 for row in matrix_list):
+            raise ValueError('Got incorrect matrix')
+
+        self._matrix = matrix_list
+        self._rows = len(self._matrix)
+        self._columns = columns_count_0
+
+    def read_from_file(self, filename):
+        with open(filename, 'r') as f:
+            matrix_list = f.readlines()
+        matrix_list = list(map(lambda s: list(map(float, s[:-1].split(' '))), matrix_list))
+        self.read_as_list(matrix_list)
+
+    def __str__(self):
+        s = '---------MATRIX---------\n'
+        s += '\n'.join(str(row) for row in self._matrix)
+        s += '\n'
+        s += f'colums = {self.shape[0]}\nrows = {self.shape[1]}'
+        s += '\n------------------------\n'
+        return s
+
+    def write_to_file(self, filename):
+        """
+        Write the matrix to the given filename.
+        TODO: implement
+        """
+        with open(filename, 'w') as file:
+            for line in list(list(map(lambda x: ' '.join(x), list(list(map(str, x)) for x in self._matrix)))):
+                file.write(line + '\n')
+
+    def traspose(self, inplace = False):
+        """
+        Transpose the matrix.
+        TODO: implement
+        """
+
+
+        self._tmatrix = [[] for _ in self._matrix[0]]
+        for i in range(len(self._matrix[0])):
+            for j in self._matrix:
+                self._tmatrix[i].append(j[i])
+
+        if inplace:
+            self._matrix = self._tmatrix
+        return Matrix(list = self._tmatrix)
+
+    @property
+    def shape(self):
+        return self._columns, self._rows
+
+    def __add__(self, other):
+        """
+        The `+` operator. Sum two matrices.
+        TODO: implement
+        """
+
+        if self.shape != other.shape:
+            raise ValueError('Shapes are not equal')
+        else:
+            self._newmat = [[] for _ in range(self._rows)]
+            for i in range(self._rows):
+                for j in range(self._columns):
+                    self._newmat[i].append(self._matrix[i][j] + other._matrix[i][j])
+
+            return Matrix(list = self._newmat)
+
+
+    def __mul__(self, other):
+        """
+        The `*` operator. Element-wise matrix multiplication.
+        Columns and rows sizes of two matrices should be the same.
+        If other is not a matrix (int, float) multiply all elements of the matrix to other.
+        TODO: implement
+        """
+
+        if self.shape != other.shape:
+            raise ValueError('Shapes are not equal')
+        else:
+            self._mulmat = [[] for _ in range(self._rows)]
+            for i in range(self._rows):
+                for j in range(self._columns):
+                    self._mulmat[i].append(self._matrix[i][j] * other._matrix[i][j])
+
+            return Matrix(list = self._mulmat)
+
+    def __matmul__(self, other):
+        """
+        The `@` operator. Mathematical matrix multiplication.
+        The number of columns in the first matrix must be equal to the number of rows in the second matrix.
+        TODO: implement
+        """
+
+        if self._columns != other._rows:
+            raise ValueError
+
+        self._malmut = [[] for _ in range(self._rows)]
+        for k in range(self._rows):
+            for i in range(other._columns):
+                _el = 0
+                for j in range(self._columns):
+                    _el += self._matrix[k][j] * other._matrix[j][i]
+                self._malmut[k].append(_el)
+        return Matrix(list = self._malmut)
+
+
+    @property
+    def trace(self):
+        """
+        Find the trace of the matrix.
+        TODO: implement
+        """
+        self._trace = 0
+        for i in range(min(self._rows, self._columns)):
+            self._trace += self._matrix[i][i]
+
+        return self._trace
+
+
+    @property
+    def determinant(self):
+        """
+        Check if the matrix is square, find the determinant.
+        TODO: implement
+        """
+        self._determinant = 0
+        if self._columns != self._rows:
+            self._determinant = 0
+            return self._determinant
+        elif self._rows == 2:
+            self._determinant = self._matrix[0][0] * self._matrix[1][1] - self._matrix[0][1] * self._matrix[1][0]
+            return self._determinant
+        else:
+            sign = 1
+            for k in range(self._columns):
+                new_mat = []
+                for i in range(self._columns):
+                    el = []
+                    for j in range(self._rows):
+                        if i != 0 and j != k:
+                            el.append(self._matrix[i][j])
+                    if el:
+                        new_mat.append(el)
+                self._determinant += self._matrix[0][k] * sign * Matrix(list = new_mat).determinant
+                sign *= -1
+            return self._determinant
